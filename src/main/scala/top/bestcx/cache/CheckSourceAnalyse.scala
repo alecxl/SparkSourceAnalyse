@@ -15,12 +15,12 @@ object CheckSourceAnalyse {
     val sc = new SparkContext(conf)
 
     val sourceRDD: RDD[String] = sc.textFile("in/user_info.txt")
-    sc.setCheckpointDir("output-check")
+    sc.setCheckpointDir("output-check1")
     val filterRDD: RDD[String] = sourceRDD.filter(_.length > 5)
     filterRDD.checkpoint()
-    filterRDD.collect()
+    filterRDD.saveAsTextFile("output-check2")
 
-    filterRDD.collect()
+    filterRDD.saveAsTextFile("output-check3")
     Thread.sleep(Long.MaxValue)
     sc.stop()
   }
